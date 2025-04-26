@@ -10,7 +10,9 @@ import com.example.customermobileapplication.ui.screens.BookingScreen
 import com.example.customermobileapplication.ui.screens.HomeScreen
 import com.example.customermobileapplication.ui.screens.LaserHariRemovalPackageScreen
 import com.example.customermobileapplication.ui.screens.LoginScreen
+import com.example.customermobileapplication.ui.screens.LoginScreen2
 import com.example.customermobileapplication.ui.screens.MediFacialPackageScreen
+import com.example.customermobileapplication.ui.screens.OtpScreen
 import com.example.customermobileapplication.ui.screens.ProductsScreen
 import com.example.customermobileapplication.ui.screens.ProfileScreen
 import com.example.customermobileapplication.ui.screens.ServiceScreen
@@ -23,7 +25,7 @@ import com.example.customermobileapplication.ui.screens.TreatmentPlanScreen
 fun AppNavigationGraph(navController: NavHostController, modifier: Modifier = Modifier){
 
 //    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Routes.HOME_SCREEN,modifier = modifier) {
+    NavHost(navController = navController, startDestination = Routes.LOGIN_SCREEN,modifier = modifier) {
 
         composable(Routes.SPLASH_SCREEN){
             SplashScreen(navController)
@@ -32,7 +34,10 @@ fun AppNavigationGraph(navController: NavHostController, modifier: Modifier = Mo
             StartScreen(navController)
         }
         composable(Routes.LOGIN_SCREEN){
-            LoginScreen(navController)
+            LoginScreen2(navController)
+        }
+        composable(Routes.OTP_SCREEN){
+            OtpScreen(navController)
         }
         composable(Routes.SIGNUP_SCREEN){
             SignUpScreen(navController)

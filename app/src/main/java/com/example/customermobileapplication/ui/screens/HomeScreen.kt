@@ -156,36 +156,7 @@ fun HomeScreen(
                 }
             }*/
         }
-        //package about us
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
-                .wrapContentHeight(),
-            elevation = CardDefaults.cardElevation(4.dp),
-            shape = RoundedCornerShape(12.dp),
-            colors = CardDefaults.cardColors(AppColors.PastelColor)
-        ) {
-            Spacer(Modifier.height(16.dp))
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = "About Us",
-                fontFamily = FontFamily(Font(R.font.poppins_bold)),
-                fontSize = 18.sp,
-                color = AppColors.Primary,
-                textAlign = TextAlign.Center
-            )
-            Spacer(Modifier.height(16.dp))
-            Text(
-                modifier = Modifier.fillMaxWidth().padding(start = 8.dp, end = 8.dp),
-                text = "At Pure Skyn we are focused on providing you with the permanent laser hair removal results that you have always wanted and nothing less. We stand behind our work and ensure that all of our customers are 100% satisfied. If you are looking for laser hair removal in India, please search \"laser hair removal near me\" to find our location and contact us to Book a FREE consultation.",
-                fontFamily = FontFamily(Font(R.font.poppins_medium)),
-                fontSize = 15.sp,
-                color = Color.Black,
-                textAlign = TextAlign.Justify
-            )
-            Spacer(Modifier.height(16.dp))
-        }
+
         // packages Cards
         Card(
             modifier = Modifier
@@ -196,6 +167,58 @@ fun HomeScreen(
             shape = RoundedCornerShape(12.dp),
             colors = CardDefaults.cardColors(AppColors.PastelColor)
         ) {
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(
+                    text = "Most Popular Packages",
+                    fontFamily = FontFamily(Font(R.font.poppins_bold)),
+                    fontSize = 16.sp,
+                    color = AppColors.Primary,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.img_laser_package), // Replace with your image
+//                        painter = painterResource(id = R.drawable.laser_hair_removal_packages), // Replace with your image
+                    contentDescription = null,
+                    modifier = Modifier
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp)),
+                    contentScale = ContentScale.Fit
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Image(
+//                        painter = painterResource(id = R.drawable.medi_facial_packages), // Replace with your image
+                    painter = painterResource(id = R.drawable.img_medi_facial_banner), // Replace with your image
+                    contentDescription = null,
+                    modifier = Modifier
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp)),
+                    contentScale = ContentScale.Fit
+                )
+                Spacer(modifier = Modifier.height(16.dp)) // Add space before the button
+                Button(
+                    onClick = { navController.navigate(Routes.TREATMENT_PLAN_SCREEN) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp), // Add padding to the sides
+                    shape = RoundedCornerShape(8.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = AppColors.Primary)
+                ) {
+                    Text(
+                        text = "Explore Packages",
+                        fontFamily = FontFamily(Font(R.font.poppins_medium)),
+                        fontSize = 14.sp,
+                        color = Color.White
+                    )
+                }
+            }
+        }
+        /*{
             Spacer(Modifier.height(16.dp))
             Text(
                 modifier = Modifier.fillMaxWidth(),
@@ -267,7 +290,8 @@ fun HomeScreen(
                 )
             }
             Spacer(Modifier.height(16.dp))
-        }
+        }*/
+
         //services card
         Card(
             modifier = Modifier
@@ -481,6 +505,36 @@ fun HomeScreen(
             Spacer(Modifier.height(16.dp))
         }
 
+        //package about us
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+                .wrapContentHeight(),
+            elevation = CardDefaults.cardElevation(4.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = CardDefaults.cardColors(AppColors.PastelColor)
+        ) {
+            Spacer(Modifier.height(16.dp))
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = "About Us",
+                fontFamily = FontFamily(Font(R.font.poppins_bold)),
+                fontSize = 18.sp,
+                color = AppColors.Primary,
+                textAlign = TextAlign.Center
+            )
+            Spacer(Modifier.height(16.dp))
+            Text(
+                modifier = Modifier.fillMaxWidth().padding(start = 8.dp, end = 8.dp),
+                text = "At Pure Skyn we are focused on providing you with the permanent laser hair removal results that you have always wanted and nothing less. We stand behind our work and ensure that all of our customers are 100% satisfied. If you are looking for laser hair removal in India, please search \"laser hair removal near me\" to find our location and contact us to Book a FREE consultation.",
+                fontFamily = FontFamily(Font(R.font.poppins_medium)),
+                fontSize = 15.sp,
+                color = Color.Black,
+                textAlign = TextAlign.Justify
+            )
+            Spacer(Modifier.height(16.dp))
+        }
 
     }
 }

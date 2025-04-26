@@ -4,10 +4,10 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     kotlin("kapt")
     alias(libs.plugins.hilt)
-//    alias(libs.plugins.)
+
 
 }
-
+apply(plugin = "io.objectbox")
 
 android {
     namespace = "com.example.customermobileapplication"
@@ -64,7 +64,7 @@ dependencies {
     debugImplementation(Dependencies.uiTooling)
     debugImplementation(Dependencies.uiTestManifest)
     testImplementation(libs.junit)
-    implementation(project(Modules.utilities))
+//    implementation(project(Modules.utilities))
     implementation(Dependencies.hiltNavigationCompose)
     implementation(Dependencies.retrofit)
     implementation(Dependencies.okhttp)
@@ -72,8 +72,25 @@ dependencies {
     implementation(Dependencies.moshi)
     implementation(Dependencies.moshiConverter)
     implementation(Dependencies.loggingInterceptor)
+//    implementation("com.sugarspoon.otpview:1.0.2")
+    implementation ("com.github.ozcanalasalvar:otpview:2.0.1")
+    // ObjectBox Core
+    implementation("io.objectbox:objectbox-android:4.2.0")
+
+    // ObjectBox Kotlin Extensions
+    implementation("io.objectbox:objectbox-kotlin:4.2.0")
+
+    // ObjectBox Annotation Processor
+    kapt("io.objectbox:objectbox-processor:4.2.0")
+//    implementation(libs.ssjetpackcomposeprogressbutton)
 }
 
 kapt{
     correctErrorTypes = true
+    arguments {
+        arg("objectbox.modelPath", "$projectDir/schemas/objectbox.json")
+        arg("objectbox.myObjectBoxPackage", "com.example.customermobileapplication") // Change to your package name
+        arg("objectbox.debug", true)
+    }
 }
+

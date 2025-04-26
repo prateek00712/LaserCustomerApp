@@ -11,7 +11,19 @@ class PreferencesManager(context: Context) {
         private const val PREF_NAME = "app_preferences"
         private const val KEY_USER_NAME = "key_user_name"
         private const val KEY_IS_LOGGED_IN = "key_is_logged_in"
+        private const val KEY_PHONE_NUMBER = "phone_number"
     }
+
+    // Save phone number
+    fun savePhoneNumber(phoneNumber: String) {
+        sharedPreferences.edit().putString(KEY_PHONE_NUMBER, phoneNumber).apply()
+    }
+
+    // Get phone number
+    fun getPhoneNumber(): String? {
+        return sharedPreferences.getString(KEY_PHONE_NUMBER, null)
+    }
+
 
     // Save string data
     fun saveUserName(userName: String) {

@@ -11,6 +11,9 @@ object AppColors {
     val PastelPeach = Color(0xFFFFE5D9)
     val PastelColor = Color(0xFFFFF7E9)
     val TextSecondary = Color(0xFF757575) // Example: Medium gray
+    val NewButtonColor = Color(0xFFAF8062)
+    val NewTextColor = Color(0xFF6B4F3F)
+    val NewButtonColor2 = Color(0xFFF8F5EF)
     val GradientColor = Brush.verticalGradient(
         colors = listOf(
             Color(0xFFE6A88E), // Pastel peach

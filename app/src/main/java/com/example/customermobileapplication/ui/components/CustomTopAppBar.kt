@@ -1,7 +1,9 @@
 package com.example.customermobileapplication.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
@@ -10,8 +12,10 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -57,12 +61,21 @@ fun CustomTopAppBar(
             }
 
             // Title
-            Text(
-                text = "Pure Skyn",
-                fontFamily = FontFamily(Font(R.font.poppins_medium)),
-                fontSize = 20.sp,
-                color = AppColors.TextPrimary
+            Image(
+                painter = painterResource(id = R.drawable.ic_logo_homepage), // Replace with your image
+                contentDescription = null,
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .wrapContentWidth()
+                    .clip(RoundedCornerShape(8.dp)),
+                contentScale = ContentScale.Crop
             )
+//            Text(
+//                text = "Pure Skyn",
+//                fontFamily = FontFamily(Font(R.font.poppins_medium)),
+//                fontSize = 20.sp,
+//                color = AppColors.TextPrimary
+//            )
 
             // Cart Icon
             IconButton(onClick = onCartClick) {

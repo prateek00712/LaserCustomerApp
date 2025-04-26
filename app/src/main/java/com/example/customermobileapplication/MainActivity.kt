@@ -81,7 +81,7 @@ fun AppEntryPoint() {
                 topBar = {
                     val currentRoute = getCurrentRoute(navController)
                     if (currentRoute != Routes.SPLASH_SCREEN && currentRoute != Routes.LOGIN_SCREEN && currentRoute != Routes.SIGNUP_SCREEN &&
-                        currentRoute != Routes.START_SCREEN
+                        currentRoute != Routes.START_SCREEN && currentRoute!=Routes.OTP_SCREEN
                     ) {
                         CustomTopAppBar(
                             onMenuClick = {
@@ -112,7 +112,7 @@ fun AppEntryPoint() {
                 bottomBar = {
                     val currentRoute = getCurrentRoute(navController)
                     if (currentRoute != Routes.SPLASH_SCREEN && currentRoute != Routes.LOGIN_SCREEN && currentRoute != Routes.SIGNUP_SCREEN &&
-                        currentRoute != Routes.START_SCREEN
+                        currentRoute != Routes.START_SCREEN && currentRoute!= Routes.OTP_SCREEN
                     ) {
                         CustomBottomNavigationBar(navController)
                     }

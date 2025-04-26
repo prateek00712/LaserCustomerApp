@@ -6,6 +6,7 @@ object Routes {
     const val SPLASH_SCREEN = "SPLASH_SCREEN"
     const val START_SCREEN = "START_SCREEN"
     const val LOGIN_SCREEN = "LOGIN_SCREEN"
+    const val OTP_SCREEN = "OTP_SCREEN"
     const val SIGNUP_SCREEN = "SIGNUP_SCREEN"
     const val PROFILE_SCREEN = "PROFILE_SCREEN"
     const val BOOKING_SCREEN = "BOOKING_SCREEN"

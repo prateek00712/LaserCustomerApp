@@ -18,8 +18,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -28,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.customermobileapplication.AppColors
 import com.example.customermobileapplication.R
 import com.example.customermobileapplication.ui.navigation.Routes
 
@@ -47,6 +50,7 @@ fun StartScreen(navController: NavController){
         modifier = Modifier
             .fillMaxSize()
             .background(
+
                 Brush.verticalGradient(
                     colors = listOf(
                         Color(0xFFE6A88E), // Pastel peach
@@ -56,39 +60,59 @@ fun StartScreen(navController: NavController){
                 )), // Pastel Peach background
         contentAlignment = Alignment.TopCenter
     ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_login_img), // Replace with your image resource
+            contentDescription = "Background Image",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop // Ensure the image fills the box, cropping if necessary
+        )
+
 //        Spacer(modifier = Modifier.height(24.dp))
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = "Pure Skyn",
-                color = Color.White,
-                fontFamily = poppinsBoldFontFamily,
-                fontSize = 24.sp,
-                modifier = Modifier.padding(top = 8.dp, bottom = 4.dp)
-            )
+//            Text(
+//                text = "Pure Skyn",
+//                color = Color.White,
+//                fontFamily = poppinsBoldFontFamily,
+//                fontSize = 24.sp,
+//                modifier = Modifier.padding(top = 8.dp, bottom = 4.dp)
+//            )
 
-            Text(
-                text = "Your Way to Silky, Smooth & Hair Free-Skin",
-                color = Color.White,
-                fontFamily = poppinsBoldFontFamily,
-                fontSize = 24.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 8.dp, bottom = 8.dp, start = 16.dp,end = 16.dp)
-            )
-            // Image at the top
             Image(
-                painter = painterResource(id = R.drawable.laser_image), // Replace with your image resource
+                painter = painterResource(id = R.drawable.login_logo), // Replace with your image resource
                 contentDescription = "Welcome Image",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
-                    .height(200.dp) // Adjust height as needed
+                    .alpha(0.9f)
+                    .height(150.dp) // Adjust height as needed
             )
-
             Spacer(modifier = Modifier.height(24.dp))
+
+            Box(
+                modifier = Modifier
+                    .padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 16.dp)
+                    .background(
+                        color = Color(0xFFF6D9CB).copy(alpha = 0.8f), // Pastel pink with 50% opacity (faded effect)
+                        shape = RoundedCornerShape(8.dp) // Optional: Rounded corners for the background
+                    )
+                    .padding(16.dp) // Padding to give some space around the text
+            ) {
+                Text(
+                    text = "Your Way to Silky, Smooth & Hair Free-Skin",
+                    color = AppColors.Primary,
+                    fontFamily = poppinsBoldFontFamily,
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center,
+                )
+            }
+
+            // Image at the top
+
+
             // Buttons at the bottom
             Column(
                 modifier = Modifier
@@ -149,13 +173,28 @@ fun StartScreen(navController: NavController){
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-                Text(
-                    text = "By using this application, you agree to the Terms and Conditions outlined herein. Please read them carefully before proceeding.",
-                    color = Color(0xFFEE6503),
-                    fontFamily = poppinsFontFamily,
-                    fontSize = 12.sp,
-                    modifier = Modifier.padding(top = 8.dp, bottom = 8.dp, start = 16.dp,end = 16.dp)
-                )
+                Box(
+                    modifier = Modifier
+                        .padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 16.dp)
+                        .background(
+                            color = Color(0xFFF6D9CB).copy(alpha = 0.8f), // Pastel pink with 50% opacity (faded effect)
+                            shape = RoundedCornerShape(8.dp) // Optional: Rounded corners for the background
+                        )
+                        .padding(16.dp) // Padding to give some space around the text
+                ) {
+                    Text(
+                        text = "By using this application, you agree to the Terms and Conditions outlined herein. Please read them carefully before proceeding.",
+                        color = Color(0xFFEE6503),
+                        fontFamily = poppinsFontFamily,
+                        fontSize = 12.sp,
+//                        modifier = Modifier.padding(
+//                            top = 8.dp,
+//                            bottom = 8.dp,
+//                            start = 16.dp,
+//                            end = 16.dp
+//                        )
+                    )
+                }
             }
         }
     }

@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
+import com.example.customermobileapplication.AppColors
 import com.example.customermobileapplication.R
 import com.example.customermobileapplication.ui.navigation.Routes
 
@@ -251,7 +252,7 @@ fun SignUpScreen(navController: NavHostController) {
                         .height(48.dp),
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFFA500), // Orange color
+                        containerColor = AppColors.Primary, // Orange color
                         contentColor = Color.White
                     )
                 ) {

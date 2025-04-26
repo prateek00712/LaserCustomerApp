@@ -200,6 +200,127 @@ fun MediFacialPackageScreen(
                         }
                     }
                 }
+                Spacer(modifier = Modifier.height(12.dp))
+                Row {
+                    Card(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(vertical = 8.dp)
+                            .wrapContentHeight(),
+                        elevation = CardDefaults.cardElevation(4.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = CardDefaults.cardColors(AppColors.PastelColor)
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(16.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_dermafrac_package), // Replace with your image
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .height(100.dp)
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(8.dp)),
+                                contentScale = ContentScale.Crop
+                            )
+                            Spacer(modifier = Modifier.height(16.dp)) // Add space before the button
+
+                            Text(
+                                text = "Dermafrac Infusion Facial",
+                                fontFamily = FontFamily(Font(R.font.poppins_bold)),
+                                fontSize = 16.sp,
+                                color = AppColors.Primary,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = "₹10000",
+                                fontFamily = FontFamily(Font(R.font.poppins_bold)),
+                                fontSize = 16.sp,
+                                color = AppColors.TextPrimary,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Spacer(modifier = Modifier.height(16.dp)) // Add space before the button
+                            Button(
+                                onClick = { /* TODO: Handle Know More & Book Now action */ },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 8.dp), // Add padding to the sides
+                                shape = RoundedCornerShape(8.dp),
+                                colors = ButtonDefaults.buttonColors(containerColor = AppColors.Primary)
+                            ) {
+                                Text(
+                                    text = "Book Now",
+                                    fontFamily = FontFamily(Font(R.font.poppins_medium)),
+                                    fontSize = 14.sp,
+                                    color = Color.White
+                                )
+                            }
+                        }
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Card(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(vertical = 8.dp)
+                            .wrapContentHeight(),
+                        elevation = CardDefaults.cardElevation(4.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = CardDefaults.cardColors(AppColors.PastelColor)
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(16.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_oxygeneo_package), // Replace with your image
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .height(100.dp)
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(8.dp)),
+                                contentScale = ContentScale.Crop
+                            )
+                            Spacer(modifier = Modifier.height(16.dp)) // Add space before the button
+
+                            Text(
+                                text = "Oxygeneo",
+                                fontFamily = FontFamily(Font(R.font.poppins_bold)),
+                                fontSize = 16.sp,
+                                color = AppColors.Primary,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = "₹5000",
+                                fontFamily = FontFamily(Font(R.font.poppins_bold)),
+                                fontSize = 16.sp,
+                                color = AppColors.TextPrimary,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Spacer(modifier = Modifier.height(16.dp)) // Add space before the button
+                            Button(
+                                onClick = { /* TODO: Handle Know More & Book Now action */ },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 8.dp), // Add padding to the sides
+                                shape = RoundedCornerShape(8.dp),
+                                colors = ButtonDefaults.buttonColors(containerColor = AppColors.Primary)
+                            ) {
+                                Text(
+                                    text = "Book Now",
+                                    fontFamily = FontFamily(Font(R.font.poppins_medium)),
+                                    fontSize = 14.sp,
+                                    color = Color.White
+                                )
+                            }
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(12.dp))
             }
         }
     }
