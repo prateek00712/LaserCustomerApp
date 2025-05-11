@@ -62,7 +62,7 @@ fun TreatmentPlanScreen(
             .background(
 //                AppColors.PastelPeach,
                 Color.White,
-                shape = RoundedCornerShape(8.dp)
+//                shape = RoundedCornerShape(8.dp)
             ) // Pastel Peach background
             .padding(16.dp)
     ) {

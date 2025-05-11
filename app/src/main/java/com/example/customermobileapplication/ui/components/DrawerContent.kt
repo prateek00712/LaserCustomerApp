@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.customermobileapplication.AppColors
+import com.example.customermobileapplication.PreferencesManager
 import com.example.customermobileapplication.R
 import com.example.customermobileapplication.ui.navigation.Routes
 
@@ -44,6 +46,7 @@ fun DrawerContent(navController: NavController, onItemSelected: (String) -> Unit
                 shape = RoundedCornerShape(topEnd = 4.dp, bottomEnd = 4.dp)
             )
             .padding(top = 54.dp, bottom = 32.dp, start = 16.dp, end = 16.dp) // Increased top padding
+        
     ) {
         // Header Row
         Row(
@@ -89,8 +92,38 @@ fun DrawerContent(navController: NavController, onItemSelected: (String) -> Unit
             "Log Out" to Routes.SPLASH_SCREEN
         )
 
+        val context = LocalContext.current
+        val preferencesManager = PreferencesManager(context)
         // Drawer Items
         drawerItems.forEach { (title, route) ->
+            Text(
+                text = title,
+                fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                fontSize = 16.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        if (title == "Log Out") {
+                            // 1. 🧹 Clear login status
+                            preferencesManager.clearPreferences()
+                            onItemSelected(title)
+                            // 2. 🚀 Navigate to Splash (and clear backstack if needed)
+                            navController.navigate(Routes.SPLASH_SCREEN) {
+                                popUpTo(0) // Clears backstack
+                            }
+                        }
+                        else {
+                            // Normal navigation
+                            onItemSelected(title)
+                            navController.navigate(route)
+                        }
+                    }
+                    .padding(vertical = 16.dp),
+                color = AppColors.Primary
+            )
+        }
+
+        /*drawerItems.forEach { (title, route) ->
             Text(
                 text = title,
                 fontFamily = FontFamily(Font(R.font.poppins_regular)),
@@ -104,7 +137,7 @@ fun DrawerContent(navController: NavController, onItemSelected: (String) -> Unit
                     .padding(vertical = 16.dp),
                 color = AppColors.Primary
             )
-        }
+        }*/
     }
 }
 

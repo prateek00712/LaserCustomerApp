@@ -256,7 +256,7 @@ fun LoginScreen2(navController: NavHostController) {
                     shape = RoundedCornerShape(16.dp)
                 )
                 .clip(RoundedCornerShape(16.dp))
-                .blur(16.dp) // Background blur
+//                .blur(16.dp) // Background blur
                 .padding(24.dp)
         ) {
             Column(
@@ -264,18 +264,19 @@ fun LoginScreen2(navController: NavHostController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Login To the",
+                    text = "Login to The\n\nPureSkyn Experience\n\n(At Comfort of your Home)",
                     fontSize = 24.sp,
                     color = Color.White,
                     fontFamily = poppinsBoldFontFamily,
+                    textAlign = TextAlign.Center
                 )
-                Text(
+                /*Text(
                     text = "UNCOVER Experience",
                     fontSize = 24.sp,
                     color = Color.White,
                     fontFamily = poppinsBoldFontFamily,
 
-                    )
+                    )*/
                 Spacer(modifier = Modifier.height(8.dp))
                 Column(
                     modifier = Modifier.fillMaxWidth()

@@ -47,44 +47,60 @@ fun CustomTopAppBar(
         contentAlignment = Alignment.Center
     ) {
         Row(
-            modifier = Modifier.fillMaxSize().padding(top = 16.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // Menu Icon
-            IconButton(onClick = onMenuClick) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = "Menu",
-                    tint = AppColors.TextPrimary// Adjust color as per design
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Menu Icon
+                IconButton(onClick = onMenuClick) {
+                    Icon(
+                        imageVector = Icons.Default.Menu,
+                        contentDescription = "Menu",
+                        tint = AppColors.TextPrimary
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(8.dp)) // Small space between menu and logo
+
+                // Logo
+                Image(
+                    painter = painterResource(id = R.drawable.ic_logo_homepage), // Replace with your image
+                    contentDescription = null,
+                    modifier = Modifier
+                        .wrapContentHeight()
+                        .wrapContentWidth()
+                        .clip(RoundedCornerShape(8.dp)),
+                    contentScale = ContentScale.Crop
                 )
             }
 
-            // Title
-            Image(
-                painter = painterResource(id = R.drawable.ic_logo_homepage), // Replace with your image
-                contentDescription = null,
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .wrapContentWidth()
-                    .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
-            )
-//            Text(
-//                text = "Pure Skyn",
-//                fontFamily = FontFamily(Font(R.font.poppins_medium)),
-//                fontSize = 20.sp,
-//                color = AppColors.TextPrimary
-//            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // New Extra SVG (your custom icon)
+                IconButton(onClick = {  }) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_customer_service_2),
+                        contentDescription = "Extra Action",
+                        tint = AppColors.TextPrimary
+                    )
+                }
 
-            // Cart Icon
-            IconButton(onClick = onCartClick) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_cart),
-                    contentDescription = "Cart",
-                    tint = AppColors.TextPrimary // Adjust color as per design
-                )
+                // Cart Icon
+                IconButton(onClick = onCartClick) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_cart),
+                        contentDescription = "Cart",
+                        tint = AppColors.TextPrimary
+                    )
+                }
             }
         }
     }
+
 }

@@ -32,9 +32,9 @@ fun CustomBottomNavigationBar(navController: NavController) {
         modifier = Modifier
             .shadow(
                 elevation = 8.dp, // Add shadow
-                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp) // Curve corners
+//                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp) // Curve corners
             )
-            .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)) // Clip to rounded corners
+//            .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)) // Clip to rounded corners
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
@@ -42,7 +42,7 @@ fun CustomBottomNavigationBar(navController: NavController) {
                         Color(0xFFF6D9CB)  // Lighter complementary color
                     )
                 ),
-                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp) // Apply rounded shape
+//                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp) // Apply rounded shape
             )
     ) {
         BottomAppBar(
@@ -80,7 +80,7 @@ fun CustomBottomNavigationBar(navController: NavController) {
             )
 
             // Cart Navigation Item
-            NavigationBarItem(
+            /*NavigationBarItem(
                 icon = {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_service_2), // Replace with your icon resource
@@ -92,7 +92,7 @@ fun CustomBottomNavigationBar(navController: NavController) {
                 label = { Text("Services", color = Color.Black) },
                 selected = getCurrentRoute(navController) == Routes.SERVICE_SCREEN,
                 onClick = { navController.navigate(Routes.SERVICE_SCREEN) }
-            )
+            )*/
 
             NavigationBarItem(
                 icon = {

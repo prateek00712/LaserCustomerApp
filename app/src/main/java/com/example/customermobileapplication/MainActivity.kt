@@ -1,6 +1,7 @@
 package com.example.customermobileapplication
 
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -22,10 +23,13 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.navigation.NavController
@@ -64,6 +68,12 @@ fun AppEntryPoint() {
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val preferencesManager = PreferencesManager(context)
+    val loginStatus = remember {
+        mutableStateOf(preferencesManager.getLoginStatus())
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -71,10 +81,11 @@ fun AppEntryPoint() {
                 navController,
                 onItemSelected = { item ->
                     // Handle drawer item selection
-                    scope.launch { drawerState.close() }
+                scope.launch { drawerState.close() }
                 }
             )
         },
+        gesturesEnabled = false,
         content = {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
@@ -91,28 +102,15 @@ fun AppEntryPoint() {
                                 navController.navigate(Routes.BOOKING_SCREEN)
                             }
                         )
-                            /*title = {
-                                Text(
-                                    text = "Pure Skyn",
-                                    fontFamily = FontFamily(Font(R.font.poppins_medium)),
-                                    color = AppColors.TextPrimary
-                                )
-                            },
-                            navigationIcon = {
-                                IconButton(onClick = { scope.launch { drawerState.open() } }) {
-                                    Icon(
-                                        imageVector = Icons.Default.Menu,
-                                        contentDescription = "Open Drawer",
-                                        tint = AppColors.TextPrimary
-                                    )
-                                }
-                            })*/
                     }
                 },
                 bottomBar = {
                     val currentRoute = getCurrentRoute(navController)
                     if (currentRoute != Routes.SPLASH_SCREEN && currentRoute != Routes.LOGIN_SCREEN && currentRoute != Routes.SIGNUP_SCREEN &&
-                        currentRoute != Routes.START_SCREEN && currentRoute!= Routes.OTP_SCREEN
+                        currentRoute != Routes.START_SCREEN && currentRoute!= Routes.OTP_SCREEN && currentRoute != Routes.PRODUCT_DETAIL_WASH
+                        && currentRoute != Routes.PRODUCT_DETAIL_SERUM && currentRoute != Routes.PRODUCT_DETAIL_SUNSCREEN
+                        && currentRoute != Routes.PRODUCT_DETAIL_MOISTURIZER && currentRoute != Routes.PRODUCT_DETAIL_PIGMENTATION
+                        && currentRoute != Routes.PRODUCT_DETAIL_ANTIOXIDANT
                     ) {
                         CustomBottomNavigationBar(navController)
                     }
@@ -124,6 +122,7 @@ fun AppEntryPoint() {
                 )
             }
         })
+
 }
 
 @Composable

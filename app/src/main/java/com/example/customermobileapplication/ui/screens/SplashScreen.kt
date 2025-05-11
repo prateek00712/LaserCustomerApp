@@ -21,21 +21,33 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.customermobileapplication.PreferencesManager
 import com.example.customermobileapplication.R
 import com.example.customermobileapplication.ui.navigation.Routes
 
 @Composable
 fun SplashScreen(navController: NavController) {
 
+    val context = LocalContext.current
+    val preferencesManager = PreferencesManager(context)
+
     LaunchedEffect(key1 = true) {
         kotlinx.coroutines.delay(2000) // Delay for 2 seconds
-        navController.navigate(Routes.START_SCREEN) {
-            popUpTo(Routes.SPLASH_SCREEN) { inclusive = true }
+        if (!preferencesManager.getLoginStatus()) {
+            navController.navigate(Routes.LOGIN_SCREEN) {
+                popUpTo(Routes.SPLASH_SCREEN) { inclusive = true }
+            }
+        }
+        else{
+            navController.navigate(Routes.HOME_SCREEN) {
+                popUpTo(Routes.SPLASH_SCREEN) { inclusive = true }
+            }
         }
     }
 

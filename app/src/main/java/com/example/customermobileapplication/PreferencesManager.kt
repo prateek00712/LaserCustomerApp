@@ -12,6 +12,7 @@ class PreferencesManager(context: Context) {
         private const val KEY_USER_NAME = "key_user_name"
         private const val KEY_IS_LOGGED_IN = "key_is_logged_in"
         private const val KEY_PHONE_NUMBER = "phone_number"
+        private const val KEY_NAME = "key_name"
     }
 
     // Save phone number
@@ -24,6 +25,15 @@ class PreferencesManager(context: Context) {
         return sharedPreferences.getString(KEY_PHONE_NUMBER, null)
     }
 
+    // Save name
+    fun saveName(name: String) {
+        sharedPreferences.edit().putString(KEY_NAME, name).apply()
+    }
+
+    // Get name
+    fun getName(): String? {
+        return sharedPreferences.getString(KEY_NAME, null)
+    }
 
     // Save string data
     fun saveUserName(userName: String) {

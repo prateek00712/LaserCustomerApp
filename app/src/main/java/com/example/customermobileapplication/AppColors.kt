@@ -14,10 +14,12 @@ object AppColors {
     val NewButtonColor = Color(0xFFAF8062)
     val NewTextColor = Color(0xFF6B4F3F)
     val NewButtonColor2 = Color(0xFFF8F5EF)
+    val LightBrown = Color(0xFFB87E54)
+    val Beige = Color(0xFFE4C6A5)
     val GradientColor = Brush.verticalGradient(
         colors = listOf(
-            Color(0xFFE6A88E), // Pastel peach
-            Color(0xFFF6D9CB)  // Lighter complementary color
+            Color(0xFFFFF7E9), // Pastel peach
+            Color(0xFFF8F5EF)  // Lighter complementary color
         )
     )
 }

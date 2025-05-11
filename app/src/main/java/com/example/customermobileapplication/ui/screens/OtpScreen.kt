@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -51,7 +52,9 @@ import androidx.navigation.NavHostController
 import com.example.customermobileapplication.AppColors
 import com.example.customermobileapplication.PreferencesManager
 import com.example.customermobileapplication.R
+import com.example.customermobileapplication.ui.navigation.Routes
 import com.ozcanalasalvar.otp_view.compose.OtpView
+import kotlinx.coroutines.delay
 
 @Composable
 fun OtpScreen(navController: NavHostController) {
@@ -68,6 +71,10 @@ fun OtpScreen(navController: NavHostController) {
     val context = LocalContext.current
     val preferencesManager = PreferencesManager(context)
     val numberValue by remember { mutableStateOf(preferencesManager.getPhoneNumber()) }
+
+    var timer by remember { mutableStateOf(60) }
+    var isTimerRunning by remember { mutableStateOf(true) }
+
 
     Box(
         modifier = Modifier
@@ -94,7 +101,7 @@ fun OtpScreen(navController: NavHostController) {
                     shape = RoundedCornerShape(16.dp)
                 )
                 .clip(RoundedCornerShape(16.dp))
-                .blur(16.dp)
+//                .blur(16.dp)
                 .padding(24.dp)
         ) {
             Column(
@@ -102,16 +109,11 @@ fun OtpScreen(navController: NavHostController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Login To the",
+                    text = "Login to The\n\nPureSkyn Experience\n\n(At Comfort of your Home)",
                     fontSize = 24.sp,
                     color = Color.White,
-                    fontFamily = poppinsBoldFontFamily
-                )
-                Text(
-                    text = "UNCOVER Experience",
-                    fontSize = 24.sp,
-                    color = Color.White,
-                    fontFamily = poppinsBoldFontFamily
+                    fontFamily = poppinsBoldFontFamily,
+                    textAlign = TextAlign.Center
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -166,10 +168,10 @@ fun OtpScreen(navController: NavHostController) {
                     }
 
                 )
-//                OtpInputFields()
 
                 Spacer(modifier = Modifier.height(8.dp))
 
+                // Timer Text
                 // Timer Text
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -177,21 +179,48 @@ fun OtpScreen(navController: NavHostController) {
                     Text(
                         text = "Didn't Receive OTP?",
                         color = Color.White.copy(alpha = 0.7f),
-                        fontSize = 16.sp
+                        fontSize = 16.sp,
+                        fontFamily = poppinsFontFamily
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "58s",
-                        color = Color.White,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+                    if (isTimerRunning) {
+                        Text(
+                            text = "${timer}s",
+                            color = Color.White,
+                            fontSize = 16.sp,
+                            fontFamily = poppinsBoldFontFamily,
+                            fontWeight = FontWeight.Bold
+                        )
+                    } else {
+                        Text(
+                            text = "Resend",
+                            color = Color.White,
+                            fontSize = 16.sp,
+                            fontFamily = poppinsBoldFontFamily,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.clickable {
+                                // When user clicks "Resend", reset timer
+                                timer = 60
+                                isTimerRunning = true
+                                // TODO: Call your resend OTP API here if needed
+                            }
+                        )
+                    }
+                }
+                LaunchedEffect(key1 = isTimerRunning) {
+                    if (isTimerRunning) {
+                        while (timer > 0) {
+                            delay(1000L)
+                            timer--
+                        }
+                        isTimerRunning = false
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
-                    onClick = { /* TODO: Verify OTP */ },
+                    onClick = { navController.navigate(Routes.SIGNUP_SCREEN) },
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = AppColors.NewButtonColor2
@@ -203,7 +232,7 @@ fun OtpScreen(navController: NavHostController) {
                     Text(
                         text = "Login",
                         color = Color.Black,
-                        fontFamily = poppinsBoldFontFamily,
+                        fontFamily = poppinsFontFamily,
                         fontSize = 20.sp
                     )
                 }
@@ -212,73 +241,3 @@ fun OtpScreen(navController: NavHostController) {
     }
 }
 
-@Composable
-fun OtpInputFields() {
-    val otpLength = 6
-    val focusRequesters = List(otpLength) { FocusRequester() }
-    val otpValues = remember { mutableStateListOf(*Array(otpLength) { "" }) }
-
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        otpValues.forEachIndexed { index, value ->
-            BasicTextField(
-                value = value,
-                onValueChange = { newValue ->
-                    when {
-                        // User typed a new digit
-                        newValue.length == 1 -> {
-                            otpValues[index] = newValue
-                            if (index < otpLength - 1) {
-                                focusRequesters[index + 1].requestFocus()
-                            }
-                        }
-                        // User deleted digit
-                        newValue.isEmpty() -> {
-                            otpValues[index] = ""
-                            if (index > 0) {
-                                focusRequesters[index - 1].requestFocus()
-                            }
-                        }
-                    }
-                },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Number
-                ),
-                keyboardActions = KeyboardActions(
-                    onNext = {
-                        if (index < otpLength - 1) {
-                            focusRequesters[index + 1].requestFocus()
-                        }
-                    }
-                ),
-                singleLine = true,
-                textStyle = LocalTextStyle.current.copy(
-                    color = Color.Black,
-                    textAlign = TextAlign.Center,
-                    fontSize = 20.sp
-                ),
-                modifier = Modifier
-                    .size(56.dp)
-                    .background(Color.White, shape = RoundedCornerShape(8.dp))
-                    .border(
-                        width = 1.dp,
-                        color = Color.Gray.copy(alpha = 0.3f),
-                        shape = RoundedCornerShape(8.dp)
-                    )
-                    .focusRequester(focusRequesters[index])
-                    .focusable(),
-                decorationBox = { innerTextField ->
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        innerTextField()
-                    }
-                }
-            )
-        }
-    }
-}

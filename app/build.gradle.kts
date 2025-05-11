@@ -72,7 +72,6 @@ dependencies {
     implementation(Dependencies.moshi)
     implementation(Dependencies.moshiConverter)
     implementation(Dependencies.loggingInterceptor)
-//    implementation("com.sugarspoon.otpview:1.0.2")
     implementation ("com.github.ozcanalasalvar:otpview:2.0.1")
     // ObjectBox Core
     implementation("io.objectbox:objectbox-android:4.2.0")
@@ -82,7 +81,6 @@ dependencies {
 
     // ObjectBox Annotation Processor
     kapt("io.objectbox:objectbox-processor:4.2.0")
-//    implementation(libs.ssjetpackcomposeprogressbutton)
 }
 
 kapt{
