@@ -65,38 +65,9 @@
         }
       ],
       "relations": []
-    },
-    {
-      "id": "3:3829446834827091060",
-      "lastPropertyId": "4:8083286935782252253",
-      "name": "ProductItemCart",
-      "properties": [
-        {
-          "id": "1:8951695901866444273",
-          "name": "id",
-          "type": 6,
-          "flags": 1
-        },
-        {
-          "id": "2:3238352823178360835",
-          "name": "title",
-          "type": 9
-        },
-        {
-          "id": "3:4379236785341416357",
-          "name": "price",
-          "type": 9
-        },
-        {
-          "id": "4:8083286935782252253",
-          "name": "quantity",
-          "type": 5
-        }
-      ],
-      "relations": []
     }
   ],
-  "lastEntityId": "3:3829446834827091060",
+  "lastEntityId": "2:6142413582509755155",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

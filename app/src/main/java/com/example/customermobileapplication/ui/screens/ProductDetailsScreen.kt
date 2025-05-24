@@ -25,6 +25,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.LocationOn
@@ -34,8 +35,11 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -59,14 +63,25 @@ import com.example.customermobileapplication.R
 import com.example.customermobileapplication.data.ProductDetail
 import com.example.customermobileapplication.data.api.data.Product
 import com.example.customermobileapplication.ui.viewmodel.HomeViewModel
+import com.example.customermobileapplication.ui.viewmodel.ServiceViewModel
 
 @Composable
-fun ProductDetailScreen(product: ProductDetail) {
+fun ProductDetailScreen(product: ProductDetail,  serviceViewModel: ServiceViewModel = hiltViewModel()) {
     val pagerState = rememberPagerState(
         initialPage = 0,
         pageCount = { product.imageResIds.size }
     )
     val expandedSections = remember { mutableStateMapOf<String, Boolean>() }
+
+/*
+    val productItems by serviceViewModel.productItems.collectAsState()
+    val productItem = productItems.find { it.title == product.name }
+    val quantity = productItem?.quantity ?: 0
+*/
+
+    val quantity = serviceViewModel.productQuantities[product.name] ?: 0
+
+
 
     Box(modifier = Modifier.fillMaxSize().background(Color.White)) {
         Column(
@@ -211,22 +226,90 @@ fun ProductDetailScreen(product: ProductDetail) {
                 .background(Color.White)
                 .padding(16.dp)
         ) {
-            Button(
-                onClick = { /* Add to cart logic */ },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = AppColors.Primary)
-            ) {
-                Text(
-                    text = "Add to cart",
-                    fontSize = 16.sp,
-                    fontFamily = FontFamily(Font(R.font.poppins_semi_bold)),
-                    color = Color.White
-                )
+            if (quantity == 0) {
+                Button(
+                    onClick = { serviceViewModel.addProduct(product) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = AppColors.Primary)
+                ) {
+                    Text(
+                        text = "Add to cart",
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(R.font.poppins_semi_bold)),
+                        color = Color.White
+                    )
+                }
+            } else {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    // Quantity Controls
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        modifier = Modifier
+                            .background(Color(0xFFF5F5F5), RoundedCornerShape(12.dp))
+                            .padding(horizontal = 12.dp, vertical = 8.dp)
+                    ) {
+                        IconButton(
+                            onClick = { serviceViewModel.decreaseQuantity(product.name) },
+                            modifier = Modifier
+                                .size(32.dp)
+                                .background(AppColors.Primary, CircleShape)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Clear,
+                                contentDescription = "Decrease",
+                                tint = Color.White
+                            )
+                        }
+
+                        Text(
+                            text = "$quantity",
+                            fontSize = 16.sp,
+                            color = AppColors.TextPrimary,
+                            fontFamily = FontFamily(Font(R.font.poppins_medium))
+                        )
+
+                        IconButton(
+                            onClick = { serviceViewModel.increaseQuantity(product.name) },
+                            modifier = Modifier
+                                .size(32.dp)
+                                .background(AppColors.Primary, CircleShape)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Add,
+                                contentDescription = "Increase",
+                                tint = Color.White
+                            )
+                        }
+                    }
+
+                    // Checkout Button
+                    Button(
+                        onClick = { /* handle checkout */ },
+                        modifier = Modifier
+                            .height(50.dp)
+                            .weight(1f),
+                        shape = RoundedCornerShape(24.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = AppColors.Primary)
+                    ) {
+                        Text(
+                            text = "Checkout",
+                            fontSize = 16.sp,
+                            fontFamily = FontFamily(Font(R.font.poppins_semi_bold)),
+                            color = Color.White
+                        )
+                    }
+                }
             }
         }
+
     }
 }
 

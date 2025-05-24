@@ -8,6 +8,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -15,13 +20,20 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.customermobileapplication.AppColors
 import com.example.customermobileapplication.R
+import com.example.customermobileapplication.ui.viewmodel.ServiceViewModel
 
 @Composable
-fun RfSkinTightScreen(navController: NavController) {
+fun RfSkinTightScreen(navController: NavController,serviceViewModel: ServiceViewModel = hiltViewModel()) {
     val context = LocalContext.current
+    var showDialog by remember { mutableStateOf(false) }
+    var selectedPackageIndex by remember { mutableIntStateOf(0) }
+    var dialogTitle by remember { mutableStateOf("") }
+    var dialogSubtitle by remember { mutableStateOf("") }
+    var dialogPackages by remember { mutableStateOf(emptyList<Pair<String, String>>()) }
 
     LazyColumn(
         modifier = Modifier
@@ -53,8 +65,40 @@ fun RfSkinTightScreen(navController: NavController) {
                     "Tightens and lifts sagging skin for a youthful appearance.",
                     "Boosts collagen production to enhance skin firmness and elasticity."
                 ),
-                onAddToCart = { /* Handle Add to Cart */ }
+                onAddToCart = {  dialogTitle = "RF Skin Tightening at Home"
+                    dialogSubtitle = "Select Your Package"
+                    dialogPackages = listOf(
+                        "RF Skin Tightening – (4+1) Session" to "₹20,000",
+                        "RF Skin Tightening – Single Session" to "₹5,000"
+                    )
+                    selectedPackageIndex = 0
+                    showDialog = true   }
             )
         }
+    }
+
+    if (showDialog) {
+        PackageSelectionDialog(
+            title = dialogTitle,
+            subtitle = dialogSubtitle,
+            packages = dialogPackages,
+            selectedIndex = selectedPackageIndex,
+            onSelect = { selectedPackageIndex = it },
+            onAddToCart = {
+                serviceViewModel.savePackageToCart(
+                    dialogTitle,
+                    "RF Skin Tightening",
+                    if (selectedPackageIndex == 0) "5 Session" else "1 session",
+                    "Service",
+                    if (selectedPackageIndex == 0) "20000" else "5000",
+                    context
+                )
+                showDialog = false
+            },
+            onBack = { showDialog = false },
+            onDismiss = {
+                showDialog = false
+            }
+        )
     }
 }

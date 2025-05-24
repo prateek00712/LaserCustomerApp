@@ -1,6 +1,7 @@
 package com.example.customermobileapplication
 
 import android.content.Context
+import io.objectbox.Box
 import io.objectbox.BoxStore
 
 object ObjectBox {
@@ -12,6 +13,9 @@ object ObjectBox {
             .androidContext(context)
             .build()
     }
+
+    fun <T> boxFor(clazz: Class<T>): Box<T> = store.boxFor(clazz)
+
     fun isInitialized(): Boolean {
         return this::store.isInitialized
     }

@@ -22,6 +22,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -42,6 +44,7 @@ import com.example.customermobileapplication.ui.navigation.AppNavigationGraph
 import com.example.customermobileapplication.ui.theme.CustomerMobileApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.customermobileapplication.ui.navigation.Routes
+import com.example.customermobileapplication.ui.viewmodel.HomeViewModel
 import kotlinx.coroutines.launch
 
 
@@ -74,6 +77,14 @@ fun AppEntryPoint() {
         mutableStateOf(preferencesManager.getLoginStatus())
     }
 
+    val homeViewModel: HomeViewModel = hiltViewModel()
+    val customerCount by homeViewModel.cartCount
+
+    // Refresh count when AppEntryPoint starts
+    LaunchedEffect(Unit) {
+        homeViewModel.refreshCustomerCount()
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -100,7 +111,8 @@ fun AppEntryPoint() {
                             },
                             onCartClick = {
                                 navController.navigate(Routes.BOOKING_SCREEN)
-                            }
+                            },
+                            cartCount = customerCount // ✅ Pass count to app bar
                         )
                     }
                 },

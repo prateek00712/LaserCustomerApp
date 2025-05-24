@@ -32,6 +32,11 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,10 +59,17 @@ import com.example.customermobileapplication.PreferencesManager
 import com.example.customermobileapplication.R
 import com.example.customermobileapplication.ui.navigation.Routes
 import com.example.customermobileapplication.ui.viewmodel.HomeViewModel
+import com.example.customermobileapplication.ui.viewmodel.ServiceViewModel
 
 @Composable
-fun OxyHydraFacial(navController: NavController) {
+fun OxyHydraFacial(navController: NavController,
+                   serviceViewModel: ServiceViewModel = hiltViewModel()) {
     val context = LocalContext.current
+    var showDialog by remember { mutableStateOf(false) }
+    var selectedPackageIndex by remember { mutableIntStateOf(0) }
+    var dialogTitle by remember { mutableStateOf("") }
+    var dialogSubtitle by remember { mutableStateOf("") }
+    var dialogPackages by remember { mutableStateOf(emptyList<Pair<String, String>>()) }
 
     LazyColumn(
         modifier = Modifier
@@ -89,8 +101,39 @@ fun OxyHydraFacial(navController: NavController) {
                     " Deeply cleanses, hydrates, and rejuvenates your skin in one session.",
                     "Removes dead skin cells and impurities while boosting hydration."
                 ),
-                onAddToCart = { /* Handle Add to Cart */ }
+                onAddToCart = { dialogTitle = "Oxy Hydra Facial at Home"
+                    dialogSubtitle = "Select Your Package"
+                    dialogPackages = listOf(
+                        "Oxy Hydra Facial – (4+1) Session" to "₹20,000",
+                        "Oxy Hydra Facial – Single Session" to "₹5,000"
+                    )
+                    selectedPackageIndex = 0
+                    showDialog = true  }
             )
         }
+    }
+    if (showDialog) {
+        PackageSelectionDialog(
+            title = dialogTitle,
+            subtitle = dialogSubtitle,
+            packages = dialogPackages,
+            selectedIndex = selectedPackageIndex,
+            onSelect = { selectedPackageIndex = it },
+            onAddToCart = {
+                serviceViewModel.savePackageToCart(
+                    dialogTitle,
+                    "Oxy Hydra Facial",
+                    if (selectedPackageIndex == 0) "5 Session" else "1 session",
+                    "Service",
+                    if (selectedPackageIndex == 0) "20000" else "5000",
+                    context
+                )
+                showDialog = false
+            },
+            onBack = { showDialog = false },
+            onDismiss = {
+                showDialog = false
+            }
+        )
     }
 }

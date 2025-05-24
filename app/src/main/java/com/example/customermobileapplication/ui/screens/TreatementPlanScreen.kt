@@ -1,5 +1,6 @@
 package com.example.customermobileapplication.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -35,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -50,12 +52,16 @@ import com.example.customermobileapplication.AppColors
 import com.example.customermobileapplication.R
 import com.example.customermobileapplication.ui.navigation.Routes
 import com.example.customermobileapplication.ui.viewmodel.HomeViewModel
+import com.example.customermobileapplication.ui.viewmodel.ServiceViewModel
 
 @Composable
 fun TreatmentPlanScreen(
     navController: NavController,
-    homeViewModel: HomeViewModel = hiltViewModel()
+    serviceViewModel: ServiceViewModel = hiltViewModel()
 ) {
+
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -113,8 +119,10 @@ fun TreatmentPlanScreen(
                             text = "Full Body Laser Hair Reduction - Female (6 sessions)",
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp,
-                            color = AppColors.NewTextColor
-                        )
+                            color = AppColors.NewTextColor,
+                            fontFamily = FontFamily(Font(R.font.poppins_regular)),
+
+                            )
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Image(
@@ -151,7 +159,7 @@ fun TreatmentPlanScreen(
                                 tint = Color.Gray
                             )*/
                             Text(
-                                text = " 60 mins",
+                                text = "60 mins",
                                 fontSize = 14.sp,
                                 color = Color.Gray
                             )
@@ -176,7 +184,16 @@ fun TreatmentPlanScreen(
                         ) {
 
                             Button(
-                                onClick = { /* Handle Add to Cart */ },
+                                onClick = {
+                                    serviceViewModel.savePackageToCart(
+                                        "Laser Hair Reduction - Female",
+                                        "Full Body",
+                                        "6 Session",
+                                        "Service",
+                                        "50000",
+                                        context
+                                    )
+                                },
                                 colors = ButtonDefaults.buttonColors(AppColors.NewButtonColor),
                                 modifier = Modifier
                                     .height(45.dp)
@@ -273,7 +290,14 @@ fun TreatmentPlanScreen(
                         ) {
 
                             Button(
-                                onClick = { /* Handle Add to Cart */ },
+                                onClick = { serviceViewModel.savePackageToCart(
+                                    "Laser Hair Reduction - Male",
+                                    "Full Body",
+                                    "6 Session",
+                                    "Service",
+                                    "50000",
+                                    context
+                                )},
                                 colors = ButtonDefaults.buttonColors(AppColors.NewButtonColor),
                                 modifier = Modifier
                                     .height(45.dp)
@@ -365,7 +389,14 @@ fun TreatmentPlanScreen(
                         ) {
 
                             Button(
-                                onClick = { /* Handle Add to Cart */ },
+                                onClick = {serviceViewModel.savePackageToCart(
+                                    "Oxy Hydra Facial + Oxygeneo Therapy",
+                                    "Face",
+                                    "1 Session",
+                                    "Service",
+                                    "10000",
+                                    context
+                                ) },
                                 colors = ButtonDefaults.buttonColors(AppColors.NewButtonColor),
                                 modifier = Modifier
                                     .height(45.dp)
@@ -457,7 +488,14 @@ fun TreatmentPlanScreen(
                         ) {
 
                             Button(
-                                onClick = { /* Handle Add to Cart */ },
+                                onClick = { serviceViewModel.savePackageToCart(
+                                    "Oxy Hydra Facial + Oxygeno + Dermafrac",
+                                    "Face",
+                                    "1 Session",
+                                    "Service",
+                                    "15000",
+                                    context
+                                ) },
                                 colors = ButtonDefaults.buttonColors(AppColors.NewButtonColor),
                                 modifier = Modifier
                                     .height(45.dp)
@@ -548,7 +586,14 @@ fun TreatmentPlanScreen(
                         ) {
 
                             Button(
-                                onClick = { /* Handle Add to Cart */ },
+                                onClick = {serviceViewModel.savePackageToCart(
+                                    "Oxygeneo + Dermafrac",
+                                    "Face",
+                                    "1 Session",
+                                    "Service",
+                                    "10000",
+                                    context
+                                )},
                                 colors = ButtonDefaults.buttonColors(AppColors.NewButtonColor),
                                 modifier = Modifier
                                     .height(45.dp)
@@ -639,7 +684,14 @@ fun TreatmentPlanScreen(
                         ) {
 
                             Button(
-                                onClick = { /* Handle Add to Cart */ },
+                                onClick = { serviceViewModel.savePackageToCart(
+                                    "Oxy Hydra Facial + Dermafra",
+                                    "Face",
+                                    "1 Session",
+                                    "Service",
+                                    "10000",
+                                    context
+                                ) },
                                 colors = ButtonDefaults.buttonColors(AppColors.NewButtonColor),
                                 modifier = Modifier
                                     .height(45.dp)

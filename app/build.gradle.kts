@@ -55,6 +55,7 @@ dependencies {
     implementation(Dependencies.toolingPreview)
     implementation(libs.androidx.ui.graphics)
     implementation(Dependencies.hiltAndroid)
+    implementation(libs.androidx.foundation.android)
     kapt(Dependencies.hiltAndroidCompiler)
     kapt(Dependencies.hiltCompiler)
     androidTestImplementation(Dependencies.androidxJUnit)
